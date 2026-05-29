@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purnika Sharma — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #111010;
+    --bg2: #181716;
+    --bg3: #201f1d;
+    --text: #e8e2da;
+    --muted: #8a8278;
+    --accent: #c8724a;
+    --accent2: #e09a74;
+    --line: rgba(255,255,255,0.07);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    backdrop-filter: blur(12px);
+    background: rgba(17,16,16,0.7);
+    border-bottom: 1px solid var(--line);
+    transition: padding 0.3s;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10rem 4rem 6rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-visual {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a1614 0%, #2a1f1a 50%, #1a1614 100%);
+  }
+
+  .hero-shape {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50% 40% 60% 35% / 45% 55% 40% 60%;
+    background: radial-gradient(ellipse at 40% 40%, rgba(200,114,74,0.18) 0%, transparent 70%);
+    animation: morph 8s ease-in-out infinite;
+    opacity: 0;
+    animation: morphFade 8s 1s ease-in-out infinite;
+  }
+
+  .hero-grid-line {
+    position: absolute;
+    background: var(--line);
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+
+  .hero-grid-line.v { width: 1px; height: 100%; left: 50%; }
+  .hero-grid-line.h { height: 1px; width: 100%; top: 50%; }
+
+  .hero-initials {
+    position: relative;
+    z-index: 2;
+    font-family: var(--serif);
+    font-size: 12rem;
+    font-weight: 300;
+    color: rgba(200,114,74,0.08);
+    letter-spacing: -0.05em;
+    user-select: none;
+    opacity: 0;
+    animation: fadeIn 1.2s 1s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; position: relative; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--bg2);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-bio {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: #c8c2ba;
+  }
+
+  .about-bio p + p { margin-top: 1.5rem; }
+
+  .about-bio strong {
+    color: var(--accent2);
+    font-weight: 400;
+  }
+
+  .about-details { display: flex; flex-direction: column; gap: 2rem; }
+
+  .detail-block {}
+
+  .detail-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-value {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid var(--line);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+
+  .pill:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--bg2);
+    padding: 2.5rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.4s ease;
+  }
+
+  .skill-card:hover::before { height: 100%; }
+  .skill-card:hover { background: var(--bg3); }
+
+  .skill-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-cat {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-card h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .skill-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .skill-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg2); }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--line);
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .exp-item:last-child { border-bottom: 1px solid var(--line); }
+
+  .exp-meta {}
+
+  .exp-date {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-company {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .exp-content {}
+
+  .exp-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .exp-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.65rem;
+    background: rgba(200,114,74,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(200,114,74,0.2);
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--bg2);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background 0.3s, transform 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-card:hover { background: var(--bg3); transform: translateY(-4px); }
+
+  .project-num {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(200,114,74,0.12);
+    line-height: 1;
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+  }
+
+  .project-cat {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .project-card h3 {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  .project-desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .stack-pill {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.6rem;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── EDUCATION ── */
+  #education {
+    background: var(--bg2);
+  }
+
+  .edu-block {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 900px;
+  }
+
+  .edu-date {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(200,114,74,0.25);
+    line-height: 1;
+  }
+
+  .edu-info {}
+
+  .edu-degree {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-school {
+    font-size: 0.95rem;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--serif);
+    font-size: 18vw;
+    font-weight: 300;
+    color: rgba(200,114,74,0.04);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.03em;
+  }
+
+  .contact-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-heading em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .contact-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+    background: rgba(200,114,74,0.05);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes morphFade {
+    0%, 100% { opacity: 1; border-radius: 50% 40% 60% 35% / 45% 55% 40% 60%; }
+    33% { border-radius: 60% 35% 45% 50% / 35% 50% 60% 40%; }
+    66% { border-radius: 35% 60% 40% 55% / 55% 40% 55% 35%; }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 2rem; }
+
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 9rem 2rem 4rem; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+
+    .edu-block { grid-template-columns: 1fr; gap: 1rem; }
+    .edu-date { font-size: 2rem; }
+
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Purnika<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Developer · Designer · Creator</p>
+    <h1 class="hero-name">Purnika<br><em>Sharma</em></h1>
+    <p class="hero-sub">Final-year Computer Science graduate based in Kathmandu, Nepal — building thoughtful digital experiences at the intersection of code, design, and storytelling.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual"></div>
+    <div class="hero-grid-line v"></div>
+    <div class="hero-grid-line h"></div>
+    <div class="hero-shape"></div>
+    <div class="hero-initials">PS</div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-bio reveal">
+      <p>I'm a <strong> BSc (Hons) Computer Science</strong> graduate from Herald College Kathmandu, affiliated with the University of Wolverhampton, UK. I thrive at the crossroads of technical precision and creative thinking.</p>
+      <p>My work spans <strong>full-stack web development</strong> (React.js, Flask, MongoDB), <strong>UI/UX design</strong> in Figma, <strong>software quality assurance</strong>, and <strong>digital content creation</strong>. I've shipped real products, managed social media for a commercial brand, and led documentation workflows in Jira.</p>
+      <p>Whether I'm architecting a recommendation engine or crafting a reel for 5,000 followers, I bring the same rigour: understand the user, iterate with intent, deliver with quality.</p>
+    </div>
+    <div class="about-details reveal">
+      <div class="detail-block">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">Kathmandu, Nepal</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">Education</div>
+        <div class="detail-value">BSc (Hons) Computer Science — 2022-2025</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">Languages</div>
+        <div class="pill-group">
+          <span class="pill">Nepali — Native</span>
+          <span class="pill">English — Fluent</span>
+          <span class="pill">Hindi — Conversational</span>
+        </div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">Interests</div>
+        <div class="pill-group">
+          <span class="pill">UI/UX Design</span>
+          <span class="pill">Web Development</span>
+          <span class="pill">QA & Testing</span>
+          <span class="pill">Digital Marketing</span>
+        </div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">GitHub</div>
+        <div class="detail-value">github.com/purnikasharma</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Expertise</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-cat">Engineering</div>
+      <h3>Frontend Dev</h3>
+      <ul class="skill-list">
+        <li>React.js &amp; JSX</li>
+        <li>HTML, CSS, Tailwind CSS</li>
+        <li>JavaScript</li>
+        <li>REST APIs &amp; Postman</li>
+        <li>Git &amp; GitHub</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">◈</div>
+      <div class="skill-cat">Engineering</div>
+      <h3>Backend &amp; DB</h3>
+      <ul class="skill-list">
+        <li>Python &amp; Flask</li>
+        <li>Node.js (Basics)</li>
+        <li>MongoDB</li>
+        <li>PostgreSQL (Basics)</li>
+        <li>CORS &amp; API design</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">◎</div>
+      <div class="skill-cat">Design</div>
+      <h3>UI/UX Design</h3>
+      <ul class="skill-list">
+        <li>Figma Prototyping</li>
+        <li>Wireframing</li>
+        <li>User Flow Mapping</li>
+        <li>Visual Branding — Canva</li>
+        <li>Design Consistency</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">⊕</div>
+      <div class="skill-cat">Quality</div>
+      <h3>QA &amp; Testing</h3>
+      <ul class="skill-list">
+        <li>Jira — Test Cases &amp; Bug Reports</li>
+        <li>Functional &amp; Non-Functional Testing</li>
+        <li>API Testing</li>
+        <li>Test Plans &amp; Documentation</li>
+        <li>Defect Tracking</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">▣</div>
+      <div class="skill-cat">Marketing</div>
+      <h3>Social Media</h3>
+      <ul class="skill-list">
+        <li>Meta Business Suite</li>
+        <li>Content Scheduling &amp; Calendars</li>
+        <li>Instagram, TikTok, LinkedIn</li>
+        <li>Reach, CTR &amp; Analytics</li>
+        <li>Community Engagement</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">◇</div>
+      <div class="skill-cat">Production</div>
+      <h3>Content Creation</h3>
+      <ul class="skill-list">
+        <li>CapCut Video Editing</li>
+        <li>Short-form Reels &amp; Shorts</li>
+        <li>Caption Copywriting</li>
+        <li>Branded Graphics — Canva</li>
+        <li>KPI Tracking — Google Sheets</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="exp-item reveal">
+    <div class="exp-meta">
+      <div class="exp-date">Nov 2025 — Feb 2026</div>
+      <div class="exp-company">Himalaya Floriculture</div>
+    </div>
+    <div class="exp-content">
+      <h3 class="exp-title">Content Creator &amp; Social Media Executive</h3>
+      <p class="exp-desc">Managed multi-platform digital presence end-to-end — publishing 5–7 posts per week across Instagram, TikTok, Facebook, and LinkedIn. Designed branded graphics, edited short-form videos, maintained content calendars, monitored performance metrics, and prepared monthly insight reports via Meta Business Suite.</p>
+      <div class="exp-tags">
+        <span class="tag">Meta Business Suite</span>
+        <span class="tag">CapCut</span>
+        <span class="tag">Canva</span>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Analytics</span>
+        <span class="tag">Google Drive</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item reveal">
+    <div class="exp-meta">
+      <div class="exp-date">During Degree</div>
+      <div class="exp-company">University Project</div>
+    </div>
+    <div class="exp-content">
+      <h3 class="exp-title">Business Analyst — HR Management System</h3>
+      <p class="exp-desc">Acted as Business Analyst in the development of an internal HRMS. Created and managed test cases, bug reports, and full project documentation in Jira. Collaborated across QA and dev teams to analyse requirements, conduct functional testing, track defects, and ensure quality deliverables.</p>
+      <div class="exp-tags">
+        <span class="tag">Jira</span>
+        <span class="tag">Functional Testing</span>
+        <span class="tag">QA Documentation</span>
+        <span class="tag">Defect Tracking</span>
+        <span class="tag">Requirements Analysis</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item reveal">
+    <div class="exp-meta">
+      <div class="exp-date">Oct — Nov 2023</div>
+      <div class="exp-company">IIDE</div>
+    </div>
+    <div class="exp-content">
+      <h3 class="exp-title">Digital Marketing Intern</h3>
+      <p class="exp-desc">Completed a structured internship covering core concepts in social media campaigns, branding, and audience targeting. Built and managed weekly content calendars, designed posts in Canva, edited reels in CapCut, and analysed platform metrics including engagement rate, reach, and impressions.</p>
+      <div class="exp-tags">
+        <span class="tag">Social Media Campaigns</span>
+        <span class="tag">Canva</span>
+        <span class="tag">CapCut</span>
+        <span class="tag">Engagement Analytics</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div class="project-cat">Full-Stack · Final Year Project</div>
+      <h3>Travel Destination Recommendation System</h3>
+      <p class="project-desc">A personalised travel platform for Nepalese tourist destinations. Features smart destination recommendations, itinerary generation based on user preferences, and local guide suggestions. Built end-to-end from Figma prototype to deployed application.</p>
+      <div class="project-stack">
+        <span class="stack-pill">React.js</span>
+        <span class="stack-pill">Flask</span>
+        <span class="stack-pill">MongoDB</span>
+        <span class="stack-pill">Python</span>
+        <span class="stack-pill">CORS</span>
+        <span class="stack-pill">REST API</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-cat">UI/UX · Figma Prototype</div>
+      <h3>BeautyHive — E-Commerce App</h3>
+      <p class="project-desc">High-fidelity interactive prototype for an online makeup store. Designed full user flows including product catalog, filters, cart, and checkout — with strong emphasis on usability, visual consistency, and intuitive navigation across devices.</p>
+      <div class="project-stack">
+        <span class="stack-pill">Figma</span>
+        <span class="stack-pill">Prototyping</span>
+        <span class="stack-pill">Wireframing</span>
+        <span class="stack-pill">User Flow</span>
+        <span class="stack-pill">UI Design</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div class="project-cat">QA · Business Analysis</div>
+      <h3>HR Management System</h3>
+      <p class="project-desc">Contributed as Business Analyst to an enterprise HRMS project. Developed comprehensive QA documentation — test plans, test cases, bug reports — and coordinated defect resolution between development and QA teams using structured Jira workflows.</p>
+      <div class="project-stack">
+        <span class="stack-pill">Jira</span>
+        <span class="stack-pill">Test Cases</span>
+        <span class="stack-pill">Bug Reports</span>
+        <span class="stack-pill">Functional Testing</span>
+        <span class="stack-pill">API Testing</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-block reveal">
+    <div class="edu-date">2022–<br>2025</div>
+    <div class="edu-info">
+      <h3 class="edu-degree">BSc (Hons) Computer Science</h3>
+      <div class="edu-school">Herald College Kathmandu · University of Wolverhampton, UK</div>
+      <p class="edu-desc">A 3-year undergraduate programme focused on web development, databases, artificial intelligence, and algorithms. Final year project: Travel Destination Recommendation System — an intelligent full-stack application for personalised tourism in Nepal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-bg-text">Hello</div>
+  <div class="contact-inner reveal">
+    <h2 class="contact-heading">Let's work<br><em>together.</em></h2>
+    <p class="contact-sub">Open to full-time roles, internships, freelance projects, and collaborations in web development, UI/UX, QA, or digital marketing.</p>
+    <div class="contact-links">
+      <a href="mailto:purnika9291@gmail.com" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+        purnika9291@gmail.com
+      </a>
+      <a href="tel:+9779862403191" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.49 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.4 1.29h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 7.09 7.09l1.77-1.77a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +977-9862403191
+      </a>
+      <a href="https://github.com/purnikasharma" target="_blank" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        github.com/purnikasharma
+      </a>
+    </div>
+    <a href="mailto:purnika9291@gmail.com" class="btn btn-primary">Say Hello →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Purnika Sharma — Kathmandu, Nepal</div>
+  <div class="footer-copy">© 2025 · Designed &amp; Built with care</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80 * (Array.from(entry.target.parentElement.children).indexOf(entry.target) % 4));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav shrink on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '1rem 4rem' : '1.4rem 4rem';
+  });
+</script>
+</body>
+</html>
